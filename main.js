@@ -67,7 +67,7 @@ function onResize(){
 
 // create atToolkitContext
 var arToolkitContext = new THREEx.ArToolkitContext({
-  cameraParametersUrl: THREEx.ArToolkitContext.baseURL + './patt.hiro',
+  cameraParametersUrl: './patt.hiro',
   detectionMode: 'mono',
 })
 // initialize it
