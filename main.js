@@ -25,7 +25,7 @@ let colors = [
   new THREE.Color(0x000000)
 ];
 
-THREE.getARDisplay().then(display => {
+THREE.ARUtils.getARDisplay().then(display => {
   if(display) {
     vrFrameData = new VRFrameData();
     vrDisplay = display;
