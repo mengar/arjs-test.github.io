@@ -150,13 +150,15 @@ function rand(min, max) {
 
 var pointPos = [0,0.5,0];
 var lastPos = [0,0.5,0];
+var colorSelect = [0,0,255];
 var colorRepeat = [255,0,0];
-var vertices = [new THREE.Vector3(-0.5,0,0.5),new THREE.Vector3(0.5,0,0.5),new THREE.Vector3(0,0.5,-0.5),new THREE.Vector3(0,1,0.5)] //3D Sierpinski Triangle
+var vertices = [new THREE.Vector3(-0.5,0,0.5),new THREE.Vector3(0.5,0,0.5),new THREE.Vector3(0,0,-0.5),new THREE.Vector3(0,1,0)] //3D Sierpinski Triangle
 var t = 0
 
 function newPoint(){
   var tempRand = rand(0,vertices.length-1);
   var temp = vertices[tempRand];
+  colorSelect = [255*(tempRand==0||tempRand==3),255*(tempRand==1||tempRand==3),255*(tempRand==2)]
   return [(lastPos[0]+temp.x)/2,(lastPos[1]+temp.y)/2,(lastPos[2]+temp.z)/2];
 
 }
@@ -165,7 +167,7 @@ var geometry = new THREE.BufferGeometry();
 geometry.addAttribute( 'position', new THREE.Float32BufferAttribute(pointPos, 3 ) );
 
 geometry.addAttribute( 'color', new THREE.Float32BufferAttribute([255,0,0], 3 ) );
-var material = new THREE.PointsMaterial( { size: 0.05, vertexColors: THREE.VertexColors} );
+var material = new THREE.PointsMaterial( { size: 0.02, vertexColors: THREE.VertexColors} );
 var points = new THREE.Points(geometry,material);
 sierpinskiMarker.add(points)
 
@@ -175,9 +177,11 @@ var inter = setInterval(function(){
   }
 
   t++;
-  pointPos.push(lastPos[0],lastPos[1],lastPos[2]);
-  lastPos = newPoint();
-  colorRepeat.push(255,0,0);
+  for(i = 0; i<5; i++){
+    pointPos.push(lastPos[0],lastPos[1],lastPos[2]);
+    colorRepeat.push(colorSelect[0],colorSelect[1],colorSelect[2]);
+    lastPos = newPoint();
+  }
   var geometry = new THREE.BufferGeometry();
   geometry.addAttribute( 'position', new THREE.Float32BufferAttribute(pointPos, 3 ) );
   geometry.addAttribute( 'color', new THREE.Float32BufferAttribute(colorRepeat, 3 ) );
