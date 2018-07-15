@@ -109,9 +109,12 @@ var menger1 = genFrac(cubeGeom);
 console.log(menger1);
 var menger2 = genFrac(menger1);
 var menger3 = genFrac(menger2);
-//var menger4 = genFrac(menger3);
+var menger4 = genFrac(menger3);
 
-scene.add(new THREE.Mesh(menger3,material));
+var selection = menger3
+selection.transform(-0.5,0,-0.5)
+
+scene.add(new THREE.Mesh(selection,material));
 
 /*
 let torusgeometry = new THREE.TorusKnotGeometry(0.3, 0.1, 64, 16);
