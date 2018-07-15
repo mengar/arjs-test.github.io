@@ -138,7 +138,7 @@ var geometry = new THREE.BufferGeometry();
 geometry.addAttribute( 'position', new THREE.Float32BufferAttribute(pointPos, 3 ) );
 
 geometry.addAttribute( 'color', new THREE.Float32BufferAttribute([255,0,0], 3 ) );
-var material = new THREE.PointsMaterial( { size: 0.01, vertexColors: THREE.VertexColors} );
+var material = new THREE.PointsMaterial( { size: 0.05, vertexColors: THREE.VertexColors} );
 var points = new THREE.Points(geometry,material);
 scene.add(points)
 
