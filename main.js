@@ -85,7 +85,7 @@ scene.visible = false;
 //////////////////////////////////////////////////////////////////////////////////
 
 // add a torus knot 
-let geometry = new THREE.CubeGeometry(1, 1, 1);
+/*let geometry = new THREE.CubeGeometry(1, 1, 1);
 let material = new THREE.MeshNormalMaterial({
   transparent: true,
   opacity: 0.5,
@@ -100,7 +100,27 @@ let torusmaterial = new THREE.MeshNormalMaterial();
 let torusmesh = new THREE.Mesh(torusgeometry, torusmaterial);
 torusmesh.position.y = 0.5;
 scene.add(torusmesh);
-onRenderFcts.push(delta => torusmesh.rotation.x += Math.PI*delta);
+onRenderFcts.push(delta => torusmesh.rotation.x += Math.PI*delta);*/
+var geometry  = new THREE.CubeGeometry(1,1,1);
+var material  = new THREE.MeshNormalMaterial({
+  transparent : true,
+  opacity: 0.5,
+  side: THREE.DoubleSide
+}); 
+var mesh  = new THREE.Mesh( geometry, material );
+mesh.position.y = geometry.parameters.height/2
+scene.add( mesh );
+
+var geometry  = new THREE.TorusKnotGeometry(0.3,0.1,64,16);
+var material  = new THREE.MeshNormalMaterial(); 
+var mesh  = new THREE.Mesh( geometry, material );
+mesh.position.y = 0.5
+scene.add( mesh );
+
+onRenderFcts.push(function(delta){
+  mesh.rotation.x += Math.PI*delta
+})
+
 
 //////////////////////////////////////////////////////////////////////////////////
 //    render the whole thing on the page
