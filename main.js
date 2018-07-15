@@ -112,7 +112,7 @@ onRenderFcts.push(_ => renderer.render(scene, camera));
 // run the rendering loop
 let lastTimeMsec = null;
 let animate;
-(animate = noMsec => {
+(animate = nowMsec => {
   requestAnimationFrame(animate);
 
   // measure time
