@@ -72,13 +72,40 @@ onRenderFcts.push(_ => {
 ////////////////////////////////////////////////////////////////////////////////
 
 // init controls for camera
-let markerControls = new THREEx.ArMarkerControls(arToolkitContext, camera, {
+let mengerMarker = new THREE.Group;
+mengerMarker.name = 'menger';
+scene.add(mengerMarker);
+let mengerMarkerControls = new THREEx.ArMarkerControls(arToolkitContext, mengerMarker, {
   type: 'pattern',
-  patternUrl: '../data/patt.hiro',
-  changeMatrixMode: 'cameraTransformMatrix'
+  patternUrl: '../data/menger.patt',
+//  changeMatrixMode: 'cameraTransformMatrix'
 });
+// add a gizmo in the center of the marker
+var geometry  = new THREE.OctahedronGeometry( 0.1, 0 )
+var material  = new THREE.MeshNormalMaterial({
+  wireframe: true
+}); 
+var mesh  = new THREE.Mesh( geometry, material );
+mengerMarker.add( mesh );
 // as we do changeMatrixMode: 'cameraTransformMatrix', start with invisible scene
-scene.visible = false;
+//scene.visible = false;
+
+let sierpinskiMarker = new THREE.Group;
+sierpinskiMarker.name = 'sierpinski';
+scene.add(sierpinskiMarker);
+let sierpinskiMarkerControls = new THREEx.ArMarkerControls(arToolkitContext, sierpinskiMarker, {
+  type: 'pattern',
+  patternUrl: '../data/sierpinski.patt',
+//  changeMatrixMode: 'cameraTransformMatrix'
+});
+// add a gizmo in the center of the marker
+var geometry  = new THREE.OctahedronGeometry( 0.1, 0 )
+var material  = new THREE.MeshNormalMaterial({
+  wireframe: true
+}); 
+var mesh  = new THREE.Mesh( geometry, material );
+sierpinskiMesh.add( mesh );
+
 
 //////////////////////////////////////////////////////////////////////////////////
 //    add an object in the scene
