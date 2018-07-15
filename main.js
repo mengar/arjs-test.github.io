@@ -84,14 +84,13 @@ scene.visible = false;
 //    add an object in the scene
 //////////////////////////////////////////////////////////////////////////////////
 
-// add a torus knot
+/* //ALL Sierpinski Sponge
 let material = new THREE.MeshNormalMaterial({
   transparent: true,
   opacity: 0.5,
   side: THREE.DoubleSide
 });
 var cubeGeom = new THREE.BoxGeometry(1,1,1);
-//let mergeReducer = (mergeInProgress,currentGeom) => mergeInProgress.merge(currentGeom);
 function genFrac(geom){
   var mergedGeometry = new THREE.Geometry();
   var tempG = geom;
@@ -115,15 +114,53 @@ var selection = menger3
 selection.translate(-0.5,0,-0.5)
 
 scene.add(new THREE.Mesh(selection,material));
-
-/*
-let torusgeometry = new THREE.TorusKnotGeometry(0.3, 0.1, 64, 16);
-let torusmaterial = new THREE.MeshNormalMaterial();
-let torusmesh = new THREE.Mesh(torusgeometry, torusmaterial);
-torusmesh.position.y = 0.5;
-scene.add(torusmesh);
-onRenderFcts.push(delta => torusmesh.rotation.x += Math.PI*delta);
 */
+
+//Chaos Game
+function rand(min, max) {
+  return (Math.floor(Math.random() * (max - min + 1)) + min);
+}
+
+var pointPos = [0,0.5,0];
+var lastPos = [0,0.5,0];
+var colorRepeat = [255,0,0];
+var vertices = [new THREE.Vector3(-0.5,0,-0.5),new THREE.Vector3(0.5,0,-0.5),new THREE.Vector3(0,0,0.5),new THREE.Vector3(0,1,-0.5)] //3D Sierpinski Triangle
+var t = 0
+
+function newPoint(){
+  var tempRand = rand(0,vertices.length-1);
+  var temp = vertices[tempRand];
+  return [(lastPos[0]+temp.x)/2,(lastPos[1]+temp.y)/2,(lastPos[2]+temp.z)/2];
+
+}
+
+var geometry = new THREE.BufferGeometry();
+geometry.addAttribute( 'position', new THREE.Float32BufferAttribute(pointPos, 3 ) );
+
+geometry.addAttribute( 'color', new THREE.Float32BufferAttribute([255,0,0], 3 ) );
+var material = new THREE.PointsMaterial( { size: 0.01, vertexColors: THREE.VertexColors} );
+var points = new THREE.Points(geometry,material);
+scene.add(points)
+
+var inter = setInterval(function(){
+  if(!scene.visible){
+    return;
+  }
+
+  t++;
+  pointPos.push(lastPos[0],lastPos[1],lastPos[2]);
+  lastPos = newPoint();
+  colorRepeat.push(255,0,0);
+  var geometry = new THREE.BufferGeometry();
+  geometry.addAttribute( 'position', new THREE.Float32BufferAttribute(pointPos, 3 ) );
+  geometry.addAttribute( 'color', new THREE.Float32BufferAttribute(colorRepeat, 3 ) );
+  var points = new THREE.Points(geometry,material);
+  scene.add(points);
+  //if(t>1000){
+  //  clearInterval(inter);
+  //}
+}, 10);
+
 
 //////////////////////////////////////////////////////////////////////////////////
 //    render the whole thing on the page
