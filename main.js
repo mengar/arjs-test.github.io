@@ -19,7 +19,7 @@ let onRenderFcts = [];
 
 // init scene and camera
 let scene = new THREE.Scene();
-  
+
 //////////////////////////////////////////////////////////////////////////////////
 //    Initialize a basic camera
 //////////////////////////////////////////////////////////////////////////////////
@@ -62,11 +62,11 @@ onRenderFcts.push(_ => {
   if(arToolkitSource.ready === false) return;
 
   arToolkitContext.update(arToolkitSource.domElement);
-  
+
   // update scene.visible if the marker is seen
   scene.visible = camera.visible;
 });
-  
+
 ////////////////////////////////////////////////////////////////////////////////
 //          Create a ArMarkerControls
 ////////////////////////////////////////////////////////////////////////////////
@@ -84,24 +84,43 @@ scene.visible = false;
 //    add an object in the scene
 //////////////////////////////////////////////////////////////////////////////////
 
-// add a torus knot 
-let geometry = new THREE.CubeGeometry(1, 1, 1);
+// add a torus knot
 let material = new THREE.MeshNormalMaterial({
   transparent: true,
   opacity: 0.5,
   side: THREE.DoubleSide
-}); 
-let mesh = new THREE.Mesh(geometry, material);
-mesh.position.y = geometry.parameters.height / 2;
-scene.add(mesh);
+});
+let geometry = new THREE.CubeGeometry(1, 1, 1);
+let cubeMesh = new THREE.Mesh(geometry, material);
+function genFrac(mesh){
+  var meshes = []
+  for(i=0;i<27;i++){
+    meshes.push(mesh.clone());
+    meshes[i].position.x = i%3;
+    meshes[i].position.z = Math.floor(i/3)%3;
+    meshes[i].position.y = Math.floor(i/9)%3;
+  }
+  meshes.splice(22,1);
+  meshes.splice(16,1);
+  meshes.splice(12,3);
+  meshes.splice(10,1);
+  meshes.splice(4,1);
+  return meshes;
+}
+//scene.add(cubeMesh);
+var frac1 = genFrac(cubeMesh);
+for(var j = 0; j<frac1.length;j++){
+  scene.add(frac1[j]);
+}
 
+/*
 let torusgeometry = new THREE.TorusKnotGeometry(0.3, 0.1, 64, 16);
-let torusmaterial = new THREE.MeshNormalMaterial(); 
+let torusmaterial = new THREE.MeshNormalMaterial();
 let torusmesh = new THREE.Mesh(torusgeometry, torusmaterial);
 torusmesh.position.y = 0.5;
 scene.add(torusmesh);
 onRenderFcts.push(delta => torusmesh.rotation.x += Math.PI*delta);
-
+*/
 
 //////////////////////////////////////////////////////////////////////////////////
 //    render the whole thing on the page
