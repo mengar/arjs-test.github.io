@@ -95,12 +95,12 @@ let mesh = new THREE.Mesh(geometry, material);
 mesh.position.y = geometry.parameters.height / 2;
 scene.add(mesh);
 
-geometry = new THREE.TorusKnotGeometry(0.3, 0.1, 64, 16);
-material = new THREE.MeshNormalMaterial(); 
-mesh = new THREE.Mesh(geometry, material);
-mesh.position.y = 0.5;
-scene.add(mesh);
-onRenderFcts.push(delta => mesh.rotation.x += Math.PI*delta);
+let torusgeometry = new THREE.TorusKnotGeometry(0.3, 0.1, 64, 16);
+let torusmaterial = new THREE.MeshNormalMaterial(); 
+let torusmesh = new THREE.Mesh(torusgeometry, torusmaterial);
+torusmesh.position.y = 0.5;
+scene.add(torusmesh);
+onRenderFcts.push(delta => torusmesh.rotation.x += Math.PI*delta);
 
 //////////////////////////////////////////////////////////////////////////////////
 //    render the whole thing on the page
