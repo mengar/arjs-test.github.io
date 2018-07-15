@@ -8,7 +8,7 @@ let renderer  = new THREE.WebGLRenderer({
   alpha: true
 });
 renderer.setClearColor(new THREE.Color('lightgrey'), 0);
-renderer.setSize( 640, 480 );
+renderer.setSize(640, 480);
 renderer.domElement.style.position = 'absolute';
 renderer.domElement.style.top = '0px';
 renderer.domElement.style.left = '0px';
@@ -65,7 +65,7 @@ onRenderFcts.push(_ => {
   
   // update scene.visible if the marker is seen
   scene.visible = camera.visible;
-})
+});
   
 ////////////////////////////////////////////////////////////////////////////////
 //          Create a ArMarkerControls
@@ -76,16 +76,16 @@ let markerControls = new THREEx.ArMarkerControls(arToolkitContext, camera, {
   type: 'pattern',
   patternUrl: '../data/patt.hiro',
   changeMatrixMode: 'cameraTransformMatrix'
-})
+});
 // as we do changeMatrixMode: 'cameraTransformMatrix', start with invisible scene
-scene.visible = false;
+//scene.visible = false;
 
 //////////////////////////////////////////////////////////////////////////////////
 //    add an object in the scene
 //////////////////////////////////////////////////////////////////////////////////
 
 // add a torus knot 
-/*let geometry = new THREE.CubeGeometry(1, 1, 1);
+let geometry = new THREE.CubeGeometry(1, 1, 1);
 let material = new THREE.MeshNormalMaterial({
   transparent: true,
   opacity: 0.5,
@@ -100,26 +100,7 @@ let torusmaterial = new THREE.MeshNormalMaterial();
 let torusmesh = new THREE.Mesh(torusgeometry, torusmaterial);
 torusmesh.position.y = 0.5;
 scene.add(torusmesh);
-onRenderFcts.push(delta => torusmesh.rotation.x += Math.PI*delta);*/
-var geometry  = new THREE.CubeGeometry(1,1,1);
-var material  = new THREE.MeshNormalMaterial({
-  transparent : true,
-  opacity: 0.5,
-  side: THREE.DoubleSide
-}); 
-var mesh  = new THREE.Mesh( geometry, material );
-mesh.position.y = geometry.parameters.height/2
-scene.add( mesh );
-
-var geometry  = new THREE.TorusKnotGeometry(0.3,0.1,64,16);
-var material  = new THREE.MeshNormalMaterial(); 
-var mesh  = new THREE.Mesh( geometry, material );
-mesh.position.y = 0.5
-scene.add( mesh );
-
-onRenderFcts.push(function(delta){
-  mesh.rotation.x += Math.PI*delta
-})
+onRenderFcts.push(delta => torusmesh.rotation.x += Math.PI*delta);
 
 
 //////////////////////////////////////////////////////////////////////////////////
@@ -137,7 +118,7 @@ let animate;
 
   // measure time
   lastTimeMsec = lastTimeMsec || nowMsec - 1000 / 60;
-  var deltaMsec = Math.min(200, nowMsec - lastTimeMsec);
+  let deltaMsec = Math.min(200, nowMsec - lastTimeMsec);
   lastTimeMsec = nowMsec;
 
   // call each update function
