@@ -90,28 +90,28 @@ let material = new THREE.MeshNormalMaterial({
   opacity: 0.5,
   side: THREE.DoubleSide
 });
-let geometry = new THREE.CubeGeometry(1, 1, 1);
-let cubeMesh = new THREE.Mesh(geometry, material);
-function genFrac(mesh){
-  var meshes = []
+var cubeGeom = new THREE.BoxGeometry(1,1,1);
+//let mergeReducer = (mergeInProgress,currentGeom) => mergeInProgress.merge(currentGeom);
+function genFrac(geom){
+  var mergedGeometry = new THREE.Geometry();
+  var tempG = geom;
   for(i=0;i<27;i++){
-    meshes.push(mesh.clone());
-    meshes[i].position.x = i%3;
-    meshes[i].position.z = Math.floor(i/3)%3;
-    meshes[i].position.y = Math.floor(i/9)%3;
+    if(!([22,16,14,13,12,10,4].includes(i))){
+      tempG.translate(i%3,Math.floor(i/3)%3,Math.floor(i/9)%3)
+      mergedGeometry.merge(tempG);
+      tempG.translate(-(i%3),-(Math.floor(i/3)%3),-(Math.floor(i/9)%3))
+    }
   }
-  meshes.splice(22,1);
-  meshes.splice(16,1);
-  meshes.splice(12,3);
-  meshes.splice(10,1);
-  meshes.splice(4,1);
-  return meshes;
+  return mergedGeometry.scale(1/3,1/3,1/3);
 }
-//scene.add(cubeMesh);
-var frac1 = genFrac(cubeMesh);
-for(var j = 0; j<frac1.length;j++){
-  scene.add(frac1[j]);
-}
+
+var menger1 = genFrac(cubeGeom);
+console.log(menger1);
+var menger2 = genFrac(menger1);
+var menger3 = genFrac(menger2);
+//var menger4 = genFrac(menger3);
+
+scene.add(new THREE.Mesh(menger3,material));
 
 /*
 let torusgeometry = new THREE.TorusKnotGeometry(0.3, 0.1, 64, 16);
