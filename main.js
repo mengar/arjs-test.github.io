@@ -150,7 +150,7 @@ function rand(min, max) {
 
 var pointPos = [0,0.5,0];
 var lastPos = [0,0.5,0];
-var colorSelect = [0,0,255];
+var colorSelect = [255,255,0];
 var colorRepeat = [255,0,0];
 var vertices = [new THREE.Vector3(-0.5,0,0.5),new THREE.Vector3(0.5,0,0.5),new THREE.Vector3(0,0,-0.5),new THREE.Vector3(0,1,0)] //3D Sierpinski Triangle
 var t = 0
