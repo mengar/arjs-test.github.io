@@ -109,10 +109,10 @@ var menger1 = genFrac(cubeGeom);
 console.log(menger1);
 var menger2 = genFrac(menger1);
 var menger3 = genFrac(menger2);
-var menger4 = genFrac(menger3);
+//var menger4 = genFrac(menger3);
 
 var selection = menger3
-selection.transform(-0.5,0,-0.5)
+selection.translate(-0.5,0,-0.5)
 
 scene.add(new THREE.Mesh(selection,material));
 
