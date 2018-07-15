@@ -183,9 +183,9 @@ var inter = setInterval(function(){
   geometry.addAttribute( 'color', new THREE.Float32BufferAttribute(colorRepeat, 3 ) );
   var points = new THREE.Points(geometry,material);
   sierpinskiMarker.add(points);
-  //if(t>1000){
-  //  clearInterval(inter);
-  //}
+  if(t>1000){
+    clearInterval(inter);
+  }
 }, 10);
 
 
