@@ -81,12 +81,12 @@ let mengerMarkerControls = new THREEx.ArMarkerControls(arToolkitContext, mengerM
 //  changeMatrixMode: 'cameraTransformMatrix'
 });
 // add a gizmo in the center of the marker
-var geometry  = new THREE.OctahedronGeometry( 0.1, 0 )
+/*var geometry  = new THREE.OctahedronGeometry( 0.1, 0 )
 var material  = new THREE.MeshNormalMaterial({
   wireframe: true
-}); 
+});
 var mesh  = new THREE.Mesh( geometry, material );
-mengerMarker.add( mesh );
+mengerMarker.add( mesh );*/
 // as we do changeMatrixMode: 'cameraTransformMatrix', start with invisible scene
 //scene.visible = false;
 
@@ -99,20 +99,20 @@ let sierpinskiMarkerControls = new THREEx.ArMarkerControls(arToolkitContext, sie
 //  changeMatrixMode: 'cameraTransformMatrix'
 });
 // add a gizmo in the center of the marker
-var geometry  = new THREE.OctahedronGeometry( 0.1, 0 )
+/*var geometry  = new THREE.OctahedronGeometry( 0.1, 0 )
 var material  = new THREE.MeshNormalMaterial({
   wireframe: true
-}); 
+});
 var mesh  = new THREE.Mesh( geometry, material );
-sierpinskiMesh.add( mesh );
+sierpinskiMarker.add( mesh );*/
 
 
 //////////////////////////////////////////////////////////////////////////////////
 //    add an object in the scene
 //////////////////////////////////////////////////////////////////////////////////
 
-/* //ALL Sierpinski Sponge
-let material = new THREE.MeshNormalMaterial({
+ //ALL Sierpinski Sponge
+let mangerMaterial = new THREE.MeshNormalMaterial({
   transparent: true,
   opacity: 0.5,
   side: THREE.DoubleSide
@@ -140,8 +140,8 @@ var menger3 = genFrac(menger2);
 var selection = menger3
 selection.translate(-0.5,0,-0.5)
 
-scene.add(new THREE.Mesh(selection,material));
-*/
+mengerMarker.add(new THREE.Mesh(selection,mangerMaterial));
+
 
 //Chaos Game
 function rand(min, max) {
@@ -167,10 +167,10 @@ geometry.addAttribute( 'position', new THREE.Float32BufferAttribute(pointPos, 3 
 geometry.addAttribute( 'color', new THREE.Float32BufferAttribute([255,0,0], 3 ) );
 var material = new THREE.PointsMaterial( { size: 0.05, vertexColors: THREE.VertexColors} );
 var points = new THREE.Points(geometry,material);
-scene.add(points)
+sierpinskiMarker.add(points)
 
 var inter = setInterval(function(){
-  if(!scene.visible){
+  if(!sierpinskiMarker.visible){
     return;
   }
 
@@ -182,7 +182,7 @@ var inter = setInterval(function(){
   geometry.addAttribute( 'position', new THREE.Float32BufferAttribute(pointPos, 3 ) );
   geometry.addAttribute( 'color', new THREE.Float32BufferAttribute(colorRepeat, 3 ) );
   var points = new THREE.Points(geometry,material);
-  scene.add(points);
+  sierpinskiMarker.add(points);
   //if(t>1000){
   //  clearInterval(inter);
   //}
