@@ -85,7 +85,7 @@ scene.visible = false;
 //////////////////////////////////////////////////////////////////////////////////
 
 // add a torus knot 
-/*let geometry = new THREE.CubeGeometry(1, 1, 1);
+let geometry = new THREE.CubeGeometry(1, 1, 1);
 let material = new THREE.MeshNormalMaterial({
   transparent: true,
   opacity: 0.5,
@@ -93,7 +93,7 @@ let material = new THREE.MeshNormalMaterial({
 }); 
 let mesh = new THREE.Mesh(geometry, material);
 mesh.position.y = geometry.parameters.height / 2;
-scene.add(mesh);*/
+scene.add(mesh);
 
 let torusgeometry = new THREE.TorusKnotGeometry(0.3, 0.1, 64, 16);
 let torusmaterial = new THREE.MeshNormalMaterial(); 
